@@ -1,3 +1,4 @@
+@import "./export-button.scss";
 @import "./high-search.scss";
 
 .app-container {
@@ -27,4 +28,8 @@
   font-weight: 600;
   font-size: 13px;
   padding: 10px 0;
+}
+.el-extend-btn {
+  float: right;
+  margin-left: 10px;
 }

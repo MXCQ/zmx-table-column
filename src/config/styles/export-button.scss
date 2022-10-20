@@ -1,0 +1,71 @@
+@charset "UTF-8";
+.el-export-button {
+  font-size: 13px;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #4a4a4a;
+  display: inline-block;
+}
+.el-export-button .el-button:active,
+.el-export-button .el-button:focus,
+.el-export-button .el-button:hover {
+  color: #4a4a4a;
+}
+.el-export-button .el-button.el-button--default {
+  background-color: #f6f6f6;
+  color: #666;
+  border: 1px solid #ddd;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  height: 30px;
+  line-height: 1;
+  border-radius: 0;
+}
+.el-export-button .el-button.el-button--default .icon-ccui-down {
+  display: inline-block;
+  font-size: 8px;
+  -webkit-transform: scale(0.7);
+  transform: scale(0.7);
+  margin-right: 0;
+  margin-left: 4px;
+  color: #9b9b9b;
+  -webkit-transition: -webkit-transform 0.3s;
+  transition: -webkit-transform 0.3s;
+  transition: transform 0.3s;
+  transition: transform 0.3s, -webkit-transform 0.3s;
+}
+.el-export-button .el-button.el-button--default .icon-ccui-down.is-reverse {
+  -webkit-transform: rotate(180deg) scale(0.7);
+  transform: rotate(180deg) scale(0.7);
+}
+.export-popover {
+  min-width: 94px;
+  height: 60px;
+  border: 1px solid #ddd;
+  border-radius: 0;
+  margin: 0;
+  padding: 0;
+}
+.export-popover .export-excel-button,
+.export-popover .export-pdf-button {
+  width: 100%;
+  height: 30px;
+  line-height: 30px;
+  text-align: left;
+  color: #4a4a4a;
+  margin: 0;
+  padding: 0 0 0 10px;
+  border: none;
+}
+.export-popover .export-excel-button:hover,
+.export-popover .export-pdf-button:hover {
+  background-color: #ebf2f9;
+}
+.export-popover .export-excel-button {
+  border-bottom: 1px solid #e3e3e3;
+}
+.export-popover .export-excel-button:hover,
+.export-popover .export-pdf-button:active,
+.export-popover .export-pdf-button:focus {
+  color: #4a4a4a;
+}

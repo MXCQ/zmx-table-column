@@ -13,8 +13,27 @@
           >
             <div class="el-tab-wrapper">
               <el-button type="table-top-active" size="mini">
-                数据质量稽核</el-button
+                数据查询</el-button
               >
+            </div>
+            <div class="el-extend-btn">
+              <el-popover placement="left" trigger="click" v-if="false">
+                <el-checkbox-group v-model="checkedTableList">
+                  <el-checkbox
+                    style="display: block"
+                    v-for="item in tableThead"
+                    :label="item.prop"
+                    :key="item.prop"
+                    >{{ item.label }}</el-checkbox
+                  >
+                </el-checkbox-group>
+                <el-button slot="reference">表头设置</el-button>
+              </el-popover>
+              <exportButton
+                placement="bottom"
+                @export-excel="handleExport"
+                @export-pdf="handleExport('all')"
+              ></exportButton>
             </div>
             <template slot="search">
               <el-input
@@ -103,6 +122,7 @@
 </template>
 
 <script>
+import exportButton from '@/components/export-button'
 import highSearch from '@/components/high-search'
 import { saveAs } from 'file-saver'
 const ExcelJS = require('exceljs')
@@ -112,6 +132,7 @@ export default {
     getTableList: null
   },
   components: {
+    exportButton,
     highSearch
   },
   data () {
@@ -473,6 +494,61 @@ export default {
             }
           ]
         }
+      ],
+      // 表格
+      axisArr: [
+        // "A1",
+        'B1',
+        'C1',
+        'D1',
+        'E1',
+        'F1',
+        'G1',
+        'H1',
+        'I1',
+        'J1',
+        'K1',
+        'L1',
+        'M1',
+        'N1',
+        'O1',
+        'P1',
+        'Q1',
+        'R1',
+        'S1',
+        'T1',
+        'U1',
+        'V1',
+        'W1',
+        'X1',
+        'Y1',
+        'Z1',
+        'AA1',
+        'AB1',
+        'AC1',
+        'AD1',
+        'AE1',
+        'AF1',
+        'AG1',
+        'AH1',
+        'AI1',
+        'AJ1',
+        'AK1',
+        'AL1',
+        'AM1',
+        'AN1',
+        'AO1',
+        'AP1',
+        'AQ1',
+        'AR1',
+        'AS1',
+        'AT1',
+        'AU1',
+        'AV1',
+        'AW1',
+        'AX1',
+        'AY1',
+        'AZ1'
       ],
       formatterList: {}
     }
