@@ -5,6 +5,8 @@ import App from './App'
 import router from './router'
 import Element from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
+// import '@/config/styles/index.css' // 项目所用公共css
+import '@/config/styles/index.scss' // 项目所用公共css
 
 Vue.config.productionTip = false
 

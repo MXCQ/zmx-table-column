@@ -1,0 +1,30 @@
+@import "./high-search.scss";
+
+.app-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.app-main-container {
+  min-width: 1080px;
+  max-width: 1680px;
+  margin: 0px auto;
+  padding: 0px 50px;
+}
+
+.el-search .el-search-wrapper {
+  width: 100%;
+  height: 30px;
+  position: relative;
+  margin-bottom: 15px;
+  font-size: 0;
+}
+.el-button.el-button--table-top-active {
+  color: #0089ef;
+  border: none;
+  border-bottom: 2px solid #0089ef;
+  border-radius: 0;
+  font-weight: 600;
+  font-size: 13px;
+  padding: 10px 0;
+}

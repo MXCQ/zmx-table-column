@@ -1,6 +1,46 @@
 <template>
   <div class="app-container">
     <div class="app-main-container">
+      <div class="el-search-wrapper">
+        <div class="el-advanced-search-wrapper el-clearfix">
+          <highSearch
+            :formProp="formData"
+            @search="search"
+            :isShowSearch="isShowSearch"
+            :selectClear="true"
+            :isShow="isShow"
+            :spoNum="2"
+          >
+            <div class="el-tab-wrapper">
+              <el-button type="table-top-active" size="mini">
+                数据质量稽核</el-button
+              >
+            </div>
+            <template slot="search">
+              <el-input
+                v-model="formData.name"
+                searchLabel="名称"
+                placeholder="请输入"
+                autocomplete="off"
+                maxlength="50"
+                clearable
+                @keyup.enter.native="enterSearch"
+              ></el-input>
+            </template>
+            <el-input
+              v-model="formData.name"
+              searchLabel="名称"
+              placeholder="请输入"
+              autocomplete="off"
+              maxlength="50"
+              clearable
+              slot="searchItem1"
+              style="max-width:400px"
+            ></el-input>
+            <!-- 表单高级搜索 -->
+          </highSearch>
+        </div>
+      </div>
       <el-table
         v-loading="loading"
         ref="tableDataRef"
@@ -63,6 +103,7 @@
 </template>
 
 <script>
+import highSearch from '@/components/high-search'
 import { saveAs } from 'file-saver'
 const ExcelJS = require('exceljs')
 export default {
@@ -70,8 +111,17 @@ export default {
   props: {
     getTableList: null
   },
+  components: {
+    highSearch
+  },
   data () {
     return {
+      formData: {
+        name: ''
+      },
+      isShowSearch: true,
+      isShow: false,
+      // 高级搜索数据 end
       loading: false,
       queryParams: {},
       tableData: [],
@@ -428,6 +478,37 @@ export default {
     }
   },
   methods: {
+    // 高级搜索 start
+    enterSearch () {
+      this.pageNoCode = 1
+      this.formDataSearch = this.formData
+      this.localSearchData = JSON.parse(JSON.stringify(this.formData))
+      this.getContractList(this.formDataSearch)
+    },
+    search (searchData) {
+      this.pageNoCode = 1
+      this.formDataSearch = searchData
+      this.localSearchData = JSON.parse(JSON.stringify(searchData))
+      this.getContractList(this.formDataSearch)
+    },
+    // 翻页相关
+    handlePrev () {},
+    handleNext () {},
+    // 每页条数发生改变
+    // 每页条数发生改变
+    handleSizeChange (val) {
+      this.pageNoCode = 1
+      if (val !== 'none') {
+        this.pageSizeCode = val
+      }
+      this.getContractList(this.formDataSearch)
+    },
+    // 当前页发生改变
+    handleCurrentChange (val) {
+      // 跳转翻页都会调这个方法
+      this.pageNoCode = val
+      this.getContractList(this.formDataSearch)
+    },
     // 导出
     async handleExport (type) {
       // 数据获取接口参数处理 start
@@ -625,17 +706,4 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-.app-container {
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-.app-main-container {
-  min-width: 1080px;
-  max-width: 1680px;
-  /* height: 0px; */
-  margin: 0px auto;
-  padding: 0px 50px;
-}
-</style>
+<style scoped></style>
