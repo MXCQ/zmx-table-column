@@ -31,8 +31,8 @@
               </el-popover>
               <exportButton
                 placement="bottom"
-                @export-excel="handleExport"
-                @export-pdf="handleExport('all')"
+                @export-excel="handleExport1"
+                @export-pdf="handleExport1('all')"
               ></exportButton>
             </div>
             <template slot="search">
@@ -66,74 +66,38 @@
         :data="tableData"
         style="width:100%"
       >
-        <el-table-column label="序号" type="index" align="center" width="60">
+        <el-table-column
+          key="-1"
+          label="序号"
+          type="index"
+          align="center"
+          width="60"
+        >
         </el-table-column>
-        <template v-for="(table, index) in tableThead">
-          <el-table-column
-            :fixed="table.fixed || false"
-            :key="index"
-            :type="table.type"
-            :label="table.label"
-            :align="table.align || 'center'"
-            :header-align="table.headerAlign || 'left'"
-            :width="table.width"
-            :min-width="table.minWidth"
-            :prop="table.prop"
-            :formatter="formatterList[table.formatterName]"
-            :show-overflow-tooltip="true"
-          >
-            <template v-if="table.children && table.children.length > 0">
-              <el-table-column
-                v-for="(child, cIdx) in table.children"
-                :fixed="child.fixed || false"
-                :key="index + '' + cIdx"
-                :type="child.type"
-                :label="child.label"
-                :align="child.align || 'center'"
-                :header-align="child.headerAlign || 'center'"
-                :min-width="child.minWidth"
-                :prop="child.prop"
-                :formatter="formatterList[child.formatterName]"
-                :show-overflow-tooltip="true"
-              >
-                <template v-if="child.children && child.children.length > 0">
-                  <el-table-column
-                    v-for="(ch, cI) in child.children"
-                    :fixed="ch.fixed || false"
-                    :key="index + '' + cIdx + '' + cI"
-                    :type="ch.type"
-                    :label="ch.label"
-                    :align="ch.align || 'center'"
-                    :header-align="ch.headerAlign || 'center'"
-                    :min-width="ch.minWidth"
-                    :prop="ch.prop"
-                    :formatter="formatterList[ch.formatterName]"
-                    :show-overflow-tooltip="true"
-                  >
-                  </el-table-column>
-                </template>
-              </el-table-column>
-            </template>
-          </el-table-column>
-        </template>
+        <el-table-column width="1"></el-table-column>
+        <childColumn :children="tableThead"> </childColumn>
       </el-table>
     </div>
   </div>
 </template>
 
 <script>
+import Export from '@/mixins/Export'
 import exportButton from '@/components/export-button'
 import highSearch from '@/components/high-search'
+import childColumn from '@/components/child-column'
 import { saveAs } from 'file-saver'
 const ExcelJS = require('exceljs')
 export default {
   name: 'HelloWorld',
+  mixins: [Export],
   props: {
     getTableList: null
   },
   components: {
     exportButton,
-    highSearch
+    highSearch,
+    childColumn
   },
   data () {
     return {
@@ -180,13 +144,6 @@ export default {
                   minWidth: '160',
                   align: 'left',
                   checked: true
-                },
-                {
-                  label: '当前在场',
-                  prop: 'currentOnCount',
-                  minWidth: '160',
-                  align: 'left',
-                  checked: true
                 }
               ]
             },
@@ -218,6 +175,13 @@ export default {
                   checked: true
                 }
               ]
+            },
+            {
+              label: '总计',
+              prop: 'accumulatedOutCount',
+              minWidth: '160',
+              align: 'left',
+              checked: true
             }
           ]
         },
@@ -427,7 +391,7 @@ export default {
               ]
             },
             {
-              label: '2022-20',
+              label: '2022-10',
               minWidth: '120',
               align: 'left',
               checked: true,
@@ -493,6 +457,13 @@ export default {
               ]
             }
           ]
+        },
+        {
+          label: '总合计',
+          prop: 'amtDec',
+          minWidth: '160',
+          align: 'left',
+          checked: true
         }
       ],
       // 表格

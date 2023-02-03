@@ -18,7 +18,7 @@
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   height: 30px;
-  line-height: 1;
+  line-height: 0;
   border-radius: 0;
 }
 .el-export-button .el-button.el-button--default .icon-ccui-down {
@@ -37,6 +37,12 @@
 .el-export-button .el-button.el-button--default .icon-ccui-down.is-reverse {
   -webkit-transform: rotate(180deg) scale(0.7);
   transform: rotate(180deg) scale(0.7);
+}
+.el-export-button .el-button.export-format {
+  background-color: #0089ef;
+  color: #fff;
+  border-radius: 2px;
+  border: none;
 }
 .export-popover {
   min-width: 94px;
