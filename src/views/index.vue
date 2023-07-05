@@ -78,6 +78,21 @@
         <childColumn :children="tableThead"> </childColumn>
       </el-table>
     </div>
+    <div style="border: 1px solid #ccc">
+      <Toolbar
+        style="border-bottom: 1px solid #ccc"
+        :editor="editor"
+        :defaultConfig="toolbarConfig"
+        :mode="mode"
+      />
+      <Editor
+        style="height: 500px; overflow-y: hidden;"
+        v-model="html"
+        :defaultConfig="editorConfig"
+        :mode="mode"
+        @onCreated="onCreated"
+      />
+    </div>
   </div>
 </template>
 
@@ -87,6 +102,8 @@ import exportButton from '@/components/export-button'
 import highSearch from '@/components/high-search'
 import childColumn from '@/components/child-column'
 import { saveAs } from 'file-saver'
+import '@wangeditor/editor/dist/css/style.css' // 引入 css
+import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
 const ExcelJS = require('exceljs')
 export default {
   name: 'HelloWorld',
@@ -95,6 +112,8 @@ export default {
     getTableList: null
   },
   components: {
+    Editor,
+    Toolbar,
     exportButton,
     highSearch,
     childColumn
@@ -521,10 +540,25 @@ export default {
         'AY1',
         'AZ1'
       ],
-      formatterList: {}
+      formatterList: {},
+
+      editor: null,
+      html: '<p>hello</p>',
+      toolbarConfig: {},
+      editorConfig: { placeholder: '请输入内容...' },
+      mode: 'default' // or 'simple'
     }
   },
+  mounted () {
+    let abc = '这是一段很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长的内容'
+    setInterval(() => {
+      this.html = abc + (Math.random() * 100).toFixed(0)
+    }, 1500)
+  },
   methods: {
+    onCreated (editor) {
+      this.editor = Object.seal(editor) // [注]一定要用 Object.seal() 则会错
+    },
     // 高级搜索 start
     enterSearch () {
       this.pageNoCode = 1

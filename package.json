@@ -11,6 +11,9 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "@wangeditor/core": "^1.1.19",
+    "@wangeditor/editor": "^5.1.23",
+    "@wangeditor/editor-for-vue": "^1.0.2",
     "element-ui": "^2.15.10",
     "exceljs": "^4.3.0",
     "file-saver": "^2.0.5",
